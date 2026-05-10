@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <!-- 스마트폰에서 보기 좋게 비율을 맞춰주는 설정 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>메신저 대화화면</title>
+  <style>
+    /* 기본 초기화 */
+    body, html {
+      margin: 0;
+      padding: 0;
+      background-color: #e9ecef; /* PC에서 볼 때의 배경색 */
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    }
+
+    /* 스마트폰 화면 컨테이너 */
+    .mobile-container {
+      max-width: 400px; /* 스마트폰 최대 너비 설정 */
+      margin: 0 auto; /* 가운데 정렬 */
+      background-color: #bacee0; /* 카카오톡 기본 배경색 */
+      height: 100vh; /* 화면 꽉 차게 */
+      overflow-y: auto; /* 내용이 길면 스크롤 생성 */
+      display: flex;
+      flex-direction: column;
+      padding: 15px;
+      box-sizing: border-box;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    /* 날짜 표시선 */
+    .date-divider {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .date-divider span {
+      background-color: rgba(0,0,0,0.15);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+    }
+
+    /* 대화 행 (가로 전체) */
+    .chat-row {
+      display: flex;
+      margin-bottom: 15px;
+      width: 100%;
+    }
+    .chat-row.me {
+      justify-content: flex-end; /* 내 메시지는 오른쪽 정렬 */
+    }
+    .chat-row.other {
+      justify-content: flex-start; /* 상대 메시지는 왼쪽 정렬 */
+    }
+
+    /* 프로필 사진 */
+    .profile-pic {
+      width: 42px;
+      height: 42px;
+      border-radius: 16px; /* 약간 둥근 사각형 (요즘 메신저 트렌드) */
+      background-color: #ddd;
+      margin-right: 10px;
+      flex-shrink: 0;
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* 이름과 말풍선을 감싸는 영역 */
+    .chat-content {
+      max-width: 75%;
+      display: flex;
+      flex-direction: column;
+    }
+    .chat-row.me .chat-content {
+      align-items: flex-end;
+    }
+
+    /* 닉네임 */
+    .nickname {
+      font-size: 13px;
+      color: #444;
+      margin-bottom: 5px;
+    }
+
+    /* 시간과 말풍선을 나란히 배치 */
+    .message-wrapper {
+      display: flex;
+      align-items: flex-end;
+    }
+    .chat-row.me .message-wrapper {
+      flex-direction: row-reverse; /* 내 메시지는 시간 위치를 반대로 */
+    }
+
+    /* 말풍선 */
+    .bubble {
+      padding: 9px 13px;
+      border-radius: 12px;
+      font-size: 14.5px;
+      line-height: 1.5;
+      word-break: break-word; /* 긴 텍스트 줄바꿈 */
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    
+    /* 상대방 말풍선 (흰색) */
+    .chat-row.other .bubble {
+      background-color: #ffffff;
+      border-top-left-radius: 2px; /* 꼬리 느낌 */
+    }
+    
+    /* 내 말풍선 (노란색) */
+    .chat-row.me .bubble {
+      background-color: #fae100;
+      border-top-right-radius: 2px; /* 꼬리 느낌 */
+    }
+
+    /* 전송 시간 */
+    .time {
+      font-size: 11px;
+      color: #666;
+      margin: 0 6px;
+      min-width: 50px;
+    }
+    .chat-row.other .time { text-align: left; }
+    .chat-row.me .time { text-align: right; }
+  </style>
+</head>
+<body>
+
+  <!-- 메신저 화면 시작 -->
+  <div class="mobile-container">
+    
+    <div class="date-divider"><span>2026년 5월 11일 월요일</span></div>
+
+    <!-- [사람 1]의 메시지 -->
+    <div class="chat-row other">
+      <!-- 무료 프로필 생성 API를 사용해 임시 이미지 삽입 -->
+      <div class="profile-pic" style="background-image: url('https://ui-avatars.com/api/?name=김&background=random');"></div>
+      <div class="chat-content">
+        <div class="nickname">김팀장</div>
+        <div class="message-wrapper">
+          <div class="bubble">안녕하세요! 다들 발표 준비는 잘 되어가시나요?</div>
+          <span class="time">오전 10:00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- [사람 2]의 메시지 -->
+    <div class="chat-row other">
+      <div class="profile-pic" style="background-image: url('https://ui-avatars.com/api/?name=이&background=random');"></div>
+      <div class="chat-content">
+        <div class="nickname">이대리</div>
+        <div class="message-wrapper">
+          <div class="bubble">네, 저는 자료 정리 거의 다 끝났습니다. 대본만 조금 더 손보면 될 것 같아요!</div>
+          <span class="time">오전 10:02</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- [나]의 메시지 (프로필 사진 없음, 오른쪽 정렬) -->
+    <div class="chat-row me">
+      <div class="chat-content">
+        <div class="message-wrapper">
+          <div class="bubble">오 좋습니다! 저도 모바일 화면 UI 구현 마쳤습니다. 지금 보고 계신 이 화면이에요.</div>
+          <span class="time">오전 10:05</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- [사람 1]의 메시지 -->
+    <div class="chat-row other">
+      <div class="profile-pic" style="background-image: url('https://ui-avatars.com/api/?name=김&background=random');"></div>
+      <div class="chat-content">
+        <div class="nickname">김팀장</div>
+        <div class="message-wrapper">
+          <div class="bubble">수고하셨습니다. 화면이 깔끔하네요! 스크롤도 잘 되나요? 발표 때 직접 내려가면서 보여줘야 해서요.</div>
+          <span class="time">오전 10:06</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- [나]의 메시지 (긴 텍스트 테스트) -->
+    <div class="chat-row me">
+      <div class="chat-content">
+        <div class="message-wrapper">
+          <div class="bubble">네, 스마트폰에서 보기 딱 좋게 반응형으로 만들었고, 이렇게 대화 내용이 길어지더라도 화면 밖으로 넘어가지 않고 자연스럽게 스크롤 되도록 구현해두었습니다. 가독성도 최대한 신경 썼어요!</div>
+          <span class="time">오전 10:08</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- [사람 2]의 메시지 -->
+    <div class="chat-row other">
+      <div class="profile-pic" style="background-image: url('https://ui-avatars.com/api/?name=이&background=random');"></div>
+      <div class="chat-content">
+        <div class="nickname">이대리</div>
+        <div class="message-wrapper">
+          <div class="bubble">완벽하네요 ㅋㅋㅋ 이따 오후 2시에 다 같이 모여서 최종 점검 한 번 하시죠!</div>
+          <span class="time">오전 10:10</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 스크롤 테스트용 여백을 만들고 싶다면 아래에 메시지를 더 추가하시면 됩니다 -->
+
+  </div>
+
+</body>
+</html>
