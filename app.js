@@ -371,6 +371,8 @@
       node.dataset.id = message.id;
       node.classList.add(message.side === "right" ? "from-right" : "from-left");
       if (message.system) node.classList.add("is-system");
+      const avatar = node.querySelector(".avatar");
+      if (avatar) avatar.dataset.avatar = getAvatarKey(message.actor);
       setNodeText(node, ".actor", message.actor);
       setNodeText(node, ".member-status", message.system ? "" : "온라인");
       setNodeText(node, ".handle", message.handle);
@@ -420,6 +422,13 @@
   function setNodeText(root, selector, value) {
     const node = root.querySelector(selector);
     if (node) node.textContent = value;
+  }
+
+  function getAvatarKey(actor) {
+    if (actor === "달_없는밤") return "moon";
+    if (actor === "나무그늘") return "shade";
+    if (actor === "정답") return "answer";
+    return "system";
   }
 
   function formatOffset(offset) {
