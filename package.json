@@ -2,7 +2,7 @@
   "name": "qrqr-theater-live",
   "version": "1.0.0",
   "private": true,
-  "description": "Static GitHub Pages audience reaction demo for a random-chat theater presentation.",
+  "description": "Static GitHub Pages random-chat theater presentation.",
   "scripts": {
     "start": "node server.js"
   },

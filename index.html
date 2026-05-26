@@ -16,23 +16,29 @@
       <span class="status-pill compact" id="sessionStatus">대기 중</span>
     </header>
 
+    <button class="new-message-alert" id="newMessageAlert" type="button" hidden>새 대화가 도착했습니다</button>
+
     <section class="audience-guide" aria-live="polite">
       <strong id="countdownText">곧 시작됩니다</strong>
-      <span>올라오는 대화에만 이모지 반응을 선택할 수 있습니다.</span>
     </section>
 
     <ol class="chat-stream audience-stream" id="messageList"></ol>
+
+    <form class="composer-bar" id="composerForm" autocomplete="off">
+      <textarea id="composerInput" rows="1" placeholder="메시지를 입력하세요"></textarea>
+      <button type="submit" disabled>전송</button>
+    </form>
   </main>
 
   <template id="messageTemplate">
     <li class="chat-message">
       <div class="message-heading">
         <span class="actor"></span>
+        <span class="member-status"></span>
         <span class="handle"></span>
         <time class="message-time"></time>
       </div>
       <p class="message-text"></p>
-      <div class="reaction-area audience-reactions" aria-label="이모지 반응"></div>
     </li>
   </template>
 
